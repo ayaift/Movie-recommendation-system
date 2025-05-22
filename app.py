@@ -33,8 +33,8 @@ st.markdown(
     "<h1 style='color: white; font-weight: bold;'>Your best movie Recommender</h1>",
     unsafe_allow_html=True
 )
-movies = pickle.load(open('dataset/savedmodels/movie_list.pkl','rb'))
-similarity = pickle.load(open('dataset/savedmodels/similarity.pkl','rb'))
+movies = pickle.load(open('datasett/savedmodels/movie_list.pkl','rb'))
+similarity = pickle.load(open('datasett/savedmodels/similarity.pkl','rb'))
 
 movie_list = movies['title'].values
 selected_movie = st.selectbox(
