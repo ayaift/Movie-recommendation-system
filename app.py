@@ -6,7 +6,17 @@ import base64
 import pickle
 import streamlit as st
 import requests
+import time
+from streamlit.runtime.scriptrunner import add_script_run_ctx
 
+# Ajout: historique de likes/dislikes
+if 'disliked_movies' not in st.session_state:
+    st.session_state['disliked_movies'] = set()
+if 'liked_movies' not in st.session_state:
+    st.session_state['liked_movies'] = set()
+if 'recommendations' not in st.session_state:
+    st.session_state['recommendations'] = []
+    
 def fetch_poster(movie_id):
     url = "https://api.themoviedb.org/3/movie/{}?api_key=8265bd1679663a7ea12ac168da84d2e8&language=en-US".format(movie_id)
     data = requests.get(url)
@@ -18,15 +28,16 @@ def fetch_poster(movie_id):
 def recommend(movie):
     index = movies[movies['title'] == movie].index[0]
     distances = sorted(list(enumerate(similarity[index])), reverse=True, key=lambda x: x[1])
-    recommended_movie_names = []
-    recommended_movie_posters = []
-    for i in distances[1:6]:
-        # fetch the movie poster
-        movie_id = movies.iloc[i[0]].movie_id
-        recommended_movie_posters.append(fetch_poster(movie_id))
-        recommended_movie_names.append(movies.iloc[i[0]].title)
-
-    return recommended_movie_names,recommended_movie_posters
+    recommended_names, recommended_posters = [], []
+    for i in distances[1:]:
+        #fetch the movie poster
+        movie_title = movies.iloc[i[0]].title
+        if movie_title not in st.session_state['disliked_movies'] and movie_title != movie:
+            recommended_names.append(movie_title)
+            recommended_posters.append(fetch_poster(movies.iloc[i[0]].movie_id))
+        if len(recommended_names) == 5:
+            break
+    return recommended_names, recommended_posters
 
 
 st.markdown(
@@ -43,24 +54,32 @@ selected_movie = st.selectbox(
 )
 
 if st.button('See Recommendations'):
-    recommended_movie_names,recommended_movie_posters = recommend(selected_movie)
-    col1, col2, col3, col4, col5 = st.columns(5)
-    with col1:
-        st.text(recommended_movie_names[0])
-        st.image(recommended_movie_posters[0])
-    with col2:
-        st.text(recommended_movie_names[1])
-        st.image(recommended_movie_posters[1])
+    names, posters = recommend(selected_movie)
+    st.session_state['recommendations'] = list(zip(names, posters))
 
-    with col3:
-        st.text(recommended_movie_names[2])
-        st.image(recommended_movie_posters[2])
-    with col4:
-        st.text(recommended_movie_names[3])
-        st.image(recommended_movie_posters[3])
-    with col5:
-        st.text(recommended_movie_names[4])
-        st.image(recommended_movie_posters[4])
+# Affichage des recommandations existantes
+if st.session_state['recommendations']:
+    cols = st.columns(5)
+    for idx in range(len(st.session_state['recommendations'])):
+        name, poster = st.session_state['recommendations'][idx]
+        with cols[idx]:
+            st.text(name)
+            st.image(poster)
+            col1, col2 = st.columns([1, 1])
+            with col1:
+                if st.button("👍", key=f"like_{name}"):
+                    st.session_state['liked_movies'].add(name)
+                    st.success("You liked this movie.")
+            with col2:
+                if st.button("👎", key=f"dislike_{name}"):
+                    st.session_state['disliked_movies'].add(name)
+                    del st.session_state['recommendations'][idx]
+                    new_names, new_posters = recommend(selected_movie)
+                    for new_name, new_poster in zip(new_names, new_posters):
+                        if new_name not in [r[0] for r in st.session_state['recommendations']]:
+                            st.session_state['recommendations'].insert(idx, (new_name, new_poster))
+                            break
+                    st.experimental_rerun()
 
 import streamlit as st
 import base64
