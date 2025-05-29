@@ -42,7 +42,7 @@ When a user selects a movie, the system:
 - Saves the processed movie list and similarity matrix using `pickle`
 - This avoids recomputing on every run
 
-📂 Files saved:
+ Files saved:
 - `movie_list.pkl`
 - `similarity.pkl`
 
@@ -57,7 +57,7 @@ The frontend is built using **Streamlit**, allowing users to:
 
 ---
 
-## ▶️ How to Run
+## How to Run
 
 To start the Streamlit app:
 ```bash
