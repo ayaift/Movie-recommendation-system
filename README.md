@@ -1,13 +1,13 @@
-# 🎬 Movie Recommendation System
+# Movie Recommendation System
 
 This is a **content-based movie recommender system** that suggests similar movies based on the details of a selected movie. It uses information such as **genres**, **keywords**, **cast**, **crew**, and **overviews** from the TMDB dataset.
 
-## 🚀 How It Works?
+##  How It Works?
 
 ###  1. Data Preprocessing
 The system starts by cleaning and combining key features into a new column called `tags`.
 
-✔️ Steps involved:
+ Steps involved:
 - Removing spaces  
 - Converting text to lowercase  
 - Stemming using `PorterStemmer`
@@ -48,12 +48,12 @@ When a user selects a movie, the system:
 
 ---
 
-## 🌐 Web Frontend with Streamlit
+##  Web Frontend with Streamlit
 
 The frontend is built using **Streamlit**, allowing users to:
-- 🎥 **Select a movie** from a dropdown menu
-- 📌 **Click a button** to get recommendations
-- 🖼️ **View posters and titles** of 5 recommended movies fetched via the TMDB API
+- **Select a movie** from a dropdown menu
+- **Click a button** to get recommendations
+- **View posters and titles** of 5 recommended movies fetched via the TMDB API
 
 ---
 
