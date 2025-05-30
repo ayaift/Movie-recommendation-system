@@ -57,17 +57,111 @@ The frontend is built using **Streamlit**, allowing users to:
 
 ---
 
-## How to Run
+## How to Run and Launch the project
 
-To start the Streamlit app:
+### Clone the Repository
+
+Start by cloning the repository from GitHub:
+
+```bash
+git clone https://github.com/ayaift/Movie-recommendation-system.git
+```
+
+Then navigate to the project folder:
+
+```bash
+cd Movie-recommendation-system
+```
+
+---
+
+### Explore the Notebook
+
+If you want to understand the model logic or see intermediate results:
+
+1. Launch Jupyter Notebook:
+
+    ```bash
+    jupyter notebook
+    ```
+
+    > This will open a local tab in your browser at `http://localhost:8888/tree`.
+
+2. Navigate to the `.ipynb` file in the directory (e.g., `Movie_Recommendation_Development.ipynb`).
+
+3. Click on the file to open it.
+
+4. Run all cells sequentially (`Kernel > Restart & Run All`).
+
+**Don't have Jupyter installed?**  
+You can install it via pip:
+
+```bash
+pip install notebook
+```
+
+Or with Poetry:
+
+```bash
+poetry add notebook
+```
+
+---
+
+### Install Dependencies
+
+#### With Poetry (recommended):
+
+If you have [Poetry](https://python-poetry.org/) installed:
+
+```bash
+poetry install
+```
+
+#### Or with pip (if you don’t use Poetry):
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+### Run the Streamlit App
+
+#### With Poetry:
+
+```bash
+poetry run streamlit run app.py
+```
+
+#### Or directly with Streamlit (if installed globally):
+
 ```bash
 streamlit run app.py
+```
 
-To start the Streamlit app using Poetry:
+---
 
-bash
-poetry run streamlit run app.py
-If you haven't installed dependencies yet, run:
+### Done!
 
-bash
-poetry install
+Your default browser should open with the app running at:
+
+```
+http://localhost:8501
+```
+
+If it doesn't open automatically, simply copy and paste the link into your browser.
+
+---
+
+### Problems that may occur
+
+- **`streamlit: command not found`**  
+  → Make sure you installed Streamlit (`pip install streamlit`) or used Poetry.
+
+- **`ModuleNotFoundError`**  
+  → Double-check that dependencies were installed properly.
+
+---
+
+Enjoy exploring and discovering new movies 🎬!
