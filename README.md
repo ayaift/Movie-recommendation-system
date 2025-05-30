@@ -131,13 +131,13 @@ pip install -r requirements.txt
 #### With Poetry:
 
 ```bash
-poetry run streamlit run app.py
+poetry run streamlit run app2.py
 ```
 
 #### Or directly with Streamlit (if installed globally):
 
 ```bash
-streamlit run app.py
+streamlit run app2.py
 ```
 
 ---
@@ -164,4 +164,3 @@ If it doesn't open automatically, simply copy and paste the link into your brows
 
 ---
 
-Enjoy exploring and discovering new movies 🎬!
