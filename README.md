@@ -62,3 +62,12 @@ The frontend is built using **Streamlit**, allowing users to:
 To start the Streamlit app:
 ```bash
 streamlit run app.py
+
+To start the Streamlit app using Poetry:
+
+bash
+poetry run streamlit run app.py
+If you haven't installed dependencies yet, run:
+
+bash
+poetry install
