@@ -131,13 +131,13 @@ pip install -r requirements.txt
 #### With Poetry:
 
 ```bash
-poetry run streamlit run app2.py
+poetry run streamlit run app.py
 ```
 
 #### Or directly with Streamlit (if installed globally):
 
 ```bash
-streamlit run app2.py
+streamlit run app.py
 ```
 
 ---
